@@ -6,6 +6,10 @@
     [".value-panel .section-heading", 0],
     [".value-card", 1],
     [".value-cta", 0],
+    [".compare-panel", 0],
+    [".compare-head", 0],
+    [".compare-card", 1],
+    [".compare-note", 0],
     [".service-panel", 0],
     [".service-intro", 0],
     [".service-card", 1],
@@ -77,4 +81,22 @@
     }
   }, { passive: true });
   update();
+})();
+
+/* ヒーローのコピーを1文字ずつ <span> に分割（脈打つアニメ用） */
+(function () {
+  var targets = document.querySelectorAll("[data-pulse]");
+  targets.forEach(function (el) {
+    var text = el.textContent;
+    el.textContent = "";
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < text.length; i++) {
+      var span = document.createElement("span");
+      span.className = "hero__ch";
+      span.textContent = text[i];
+      span.style.setProperty("--i", i);
+      frag.appendChild(span);
+    }
+    el.appendChild(frag);
+  });
 })();

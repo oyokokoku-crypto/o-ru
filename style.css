@@ -24,9 +24,19 @@ html {
 
 /* 追従ヘッダーの分だけアンカー位置をずらす */
 #value,
+#compare,
 #service,
 #contact {
-  scroll-margin-top: 88px;
+  scroll-margin-top: 130px;
+}
+
+@media (min-width: 1240px) {
+  #value,
+  #compare,
+  #service,
+  #contact {
+    scroll-margin-top: 96px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -82,8 +92,8 @@ body > * {
   z-index: 1;
 }
 
-/* つながる水玉模様（背景キャンバス） */
-.bg-bokeh {
+/* 浮遊する記号（背景キャンバス） */
+.bg-symbols {
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -205,6 +215,39 @@ select {
 
   82% {
     transform: translateY(0) scale(1);
+    filter: brightness(1);
+    text-shadow: 0 0 0 rgba(0, 87, 255, 0);
+  }
+}
+
+@keyframes heroBeat {
+  0%,
+  58%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+    text-shadow: 0 0 0 rgba(0, 87, 255, 0);
+  }
+
+  64% {
+    transform: scale(1.18);
+    filter: brightness(1.12);
+    text-shadow: 0 0 16px rgba(0, 87, 255, 0.32);
+  }
+
+  70% {
+    transform: scale(0.97);
+    filter: brightness(1.02);
+  }
+
+  76% {
+    transform: scale(1.1);
+    filter: brightness(1.08);
+    text-shadow: 0 0 12px rgba(0, 87, 255, 0.24);
+  }
+
+  84% {
+    transform: scale(1);
     filter: brightness(1);
     text-shadow: 0 0 0 rgba(0, 87, 255, 0);
   }
@@ -497,19 +540,117 @@ select {
 /* Hero */
 .hero {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 0;
-  padding: 16px 40px 48px;
+  padding: 10px 40px 60px;
   overflow: hidden;
   background: transparent;
 }
 
+.hero__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
 .hero__animation {
-  width: min(100%, 1120px);
+  width: 100%;
+  max-width: 1000px;
+  max-height: 74vh;
   height: auto;
   object-fit: contain;
+}
+
+/* スクロールに追従するコピー --------------------------------------------
+   スマホ・タブレット: 上部に貼り付く横並びバー
+   ワイド表示(≥1240px): 画面の左右端に縦書きで固定 */
+.hero__copies {
+  position: sticky;
+  top: 64px;
+  z-index: 15;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.45em;
+  padding: 11px 16px;
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+.hero__copy {
+  margin: 0;
+  color: var(--black);
+  font-family: var(--font-jp);
+  font-weight: 900;
+  font-size: clamp(19px, 5.4vw, 30px);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.hero__copy--right {
+  order: 1;
+}
+
+.hero__copy--left {
+  order: 2;
+}
+
+/* 1文字ずつに分割された各文字 */
+.hero__ch {
+  display: inline-block;
+  will-change: transform, filter;
+}
+
+@media (min-width: 768px) {
+  .hero__copies {
+    top: 72px;
+  }
+
+  .hero__copy {
+    font-size: clamp(24px, 3.4vw, 34px);
+  }
+}
+
+/* ワイド: 左右端に縦書きで固定して常時追従 */
+@media (min-width: 1240px) {
+  .hero__copies {
+    position: fixed;
+    inset: 0;
+    top: 0;
+    z-index: 15;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    padding: 0 clamp(10px, 1.6vw, 34px);
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-bottom: none;
+    pointer-events: none;
+  }
+
+  .hero__copy {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: clamp(30px, 3.4vw, 50px);
+    letter-spacing: 0.08em;
+    line-height: 1.16;
+  }
+
+  .hero__copy--right {
+    order: 1;
+  }
+
+  .hero__copy--left {
+    order: 0;
+  }
 }
 
 .value-panel,
@@ -555,6 +696,11 @@ select {
   .hero__animation {
     animation: heroReveal 1200ms 120ms cubic-bezier(0.16, 1, 0.3, 1) both;
     will-change: transform, opacity, filter;
+  }
+
+  .hero__ch {
+    animation: heroBeat 3.6s ease-in-out infinite;
+    animation-delay: calc(var(--i, 0) * 0.08s);
   }
 
   .reveal-item {
@@ -1099,6 +1245,187 @@ select {
   line-height: 1.8;
 }
 
+/* Comparison */
+.compare-section {
+  margin-top: 104px;
+  padding: 0 40px;
+}
+
+.compare-panel {
+  width: min(100%, 1080px);
+  margin: 0 auto;
+  padding: 56px 40px;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+}
+
+.compare-head {
+  max-width: 32em;
+  margin: 0 auto 44px;
+  text-align: center;
+}
+
+.compare-eyebrow {
+  margin: 0 0 16px;
+  color: var(--blue);
+  font-family: var(--font-en);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.compare-title {
+  margin: 0 0 16px;
+  color: var(--black);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.compare-sub {
+  margin: 0;
+  color: var(--text-gray);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.compare-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 30px 26px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: var(--white);
+  transition:
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 280ms ease,
+    border-color 280ms ease;
+}
+
+.compare-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+/* オール = おすすめ列を強調 */
+.compare-card.is-featured {
+  border-color: rgba(0, 87, 255, 0.38);
+  background: linear-gradient(180deg, var(--pale-blue), #ffffff 72%);
+  box-shadow: 0 20px 44px rgba(0, 87, 255, 0.14);
+  transform: translateY(-10px);
+}
+
+.compare-card.is-featured:hover {
+  transform: translateY(-14px);
+}
+
+.compare-card__badgerow {
+  display: flex;
+  min-height: 28px;
+  margin-bottom: 16px;
+}
+
+.compare-card__badge {
+  align-self: flex-start;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.compare-card__name {
+  margin: 0 0 6px;
+  color: var(--black);
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.compare-card.is-featured .compare-card__name {
+  color: var(--blue);
+}
+
+.compare-card__tag {
+  margin: 0;
+  min-height: 3em;
+  color: #6b7488;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.compare-card__metrics {
+  margin: 20px 0 0;
+}
+
+.compare-metric {
+  padding: 18px 0;
+  border-top: 1px solid var(--border);
+}
+
+.compare-metric:last-child {
+  padding-bottom: 4px;
+}
+
+.compare-card.is-featured .compare-metric {
+  border-top-color: rgba(0, 87, 255, 0.18);
+}
+
+.compare-metric dt {
+  margin: 0 0 8px;
+  color: #8a93a6;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.compare-metric__value {
+  margin: 0;
+  color: var(--black);
+  font-family: var(--font-en);
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.compare-card.is-featured .compare-metric__value {
+  color: var(--blue);
+}
+
+.compare-metric__value .dash {
+  margin: 0 7px;
+  color: #b9c1d4;
+  font-weight: 600;
+}
+
+.compare-metric__value .unit {
+  margin-left: 3px;
+  font-size: 0.56em;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.compare-note {
+  margin: 28px 0 0;
+  color: #98a1b2;
+  font-size: 12.5px;
+  text-align: center;
+}
+
 /* Service */
 .service-section {
   margin-top: 104px;
@@ -1603,23 +1930,35 @@ select {
 
   .hero {
     min-height: 0;
-    padding: 18px 12px 36px;
+    padding: 14px 16px 32px;
+  }
+
+  .hero__copies {
+    top: 64px;
+    padding: 9px 14px;
+    gap: 0.4em;
+  }
+
+  .hero__copy {
+    font-size: clamp(18px, 5.6vw, 30px);
   }
 
   .hero__animation {
     width: 100%;
+    max-height: none;
   }
 
   .section-heading__eyebrow {
-    font-size: 24px;
+    font-size: 12px;
   }
 
   .section-heading__lead {
     margin-bottom: 28px;
-    font-size: 16px;
+    font-size: 21px;
   }
 
   .value-section,
+  .compare-section,
   .service-section {
     padding: 0 20px;
   }
@@ -1627,6 +1966,40 @@ select {
   .value-panel {
     padding: 32px 20px;
     border-radius: 24px;
+  }
+
+  .compare-panel {
+    padding: 36px 20px;
+    border-radius: 24px;
+  }
+
+  .compare-title {
+    font-size: 24px;
+  }
+
+  .compare-sub {
+    font-size: 15px;
+  }
+
+  .compare-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* 縦積み時は強調列を浮かせず、重なりを防ぐ */
+  .compare-card.is-featured,
+  .compare-card.is-featured:hover {
+    transform: none;
+  }
+
+  /* バッジが無いカードでは余白を詰める */
+  .compare-card__badgerow:empty {
+    min-height: 0;
+    margin-bottom: 0;
+  }
+
+  .compare-card__tag {
+    min-height: 0;
   }
 
   .value-grid {
