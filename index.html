@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>オール | はやく、うまく、ちょうどよく。</title>
+  <meta name="description" content="オールは、企画・デザイン・Web・写真・動画・SNSまで一貫して伴走するデザインスタジオです。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&amp;family=Noto+Sans+JP:wght@400;500;600;700;800;900&amp;family=Poppins:wght@700;800;900&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="bg-bokeh.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <canvas id="bg-bokeh" class="bg-bokeh" aria-hidden="true"></canvas>
+  <header class="site-header">
+    <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="メニューを開閉">
+    <div class="site-header__inner">
+      <a class="site-logo" href="#top" aria-label="オール トップへ">オール</a>
+
+      <nav class="primary-nav" aria-label="メインナビゲーション">
+        <a href="#value">特長</a>
+        <a href="#service">サービス</a>
+        <a href="#contact">お問い合わせ</a>
+      </nav>
+
+      <div class="header-actions">
+        <label class="hamburger" for="nav-toggle" aria-label="メニュー">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+      </div>
+    </div>
+
+    <nav class="mobile-menu" aria-label="モバイルナビゲーション">
+      <a href="#value">特長</a>
+      <a href="#service">サービス</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 class="visually-hidden" id="hero-title">はやく、うまく、ちょうどよく。</h1>
+      <p class="visually-hidden">
+        オールは、企画・デザイン・Web・写真・動画・SNSまで一貫して伴走。
+        AI・ノーコードも活用し、地域の事業者・団体・行政・教育に、
+        ムダなく、ちょうどよい制作を届けます。
+      </p>
+      <video class="hero__animation" src="assets/topanime.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+    </section>
+
+    <section class="value-section" id="value" aria-labelledby="value-title">
+      <div class="value-panel">
+        <div class="section-heading section-heading--center">
+          <p class="section-heading__eyebrow" id="value-title">OUR VALUE</p>
+          <p class="section-heading__lead">オールが大切にしているのは、スピード・品質・費用のバランスです。</p>
+        </div>
+
+        <div class="value-grid">
+          <article class="value-card">
+            <div class="value-card__top">
+              <span class="value-card__number">01</span>
+              <span class="icon-circle">
+                <img src="assets/icon_value_speed_lightning.png" alt="" loading="lazy">
+              </span>
+            </div>
+            <h2 class="value-card__title">はやい</h2>
+            <p class="value-card__text">AI・ノーコードで制作プロセスを最適化</p>
+
+            <div class="workflow-figure" aria-label="一般的な制作方法とオールの制作期間比較">
+              <p class="figure-title">USP的な独自ワークフロー</p>
+              <div class="bar-row">
+                <div class="bar-row__label">一般的な制作方法</div>
+                <div class="bar-track">
+                  <span class="bar-fill bar-fill--gray"></span>
+                </div>
+                <div class="bar-row__days">約15営業日</div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-row__label">オール</div>
+                <div class="bar-track">
+                  <span class="bar-fill bar-fill--blue"></span>
+                </div>
+                <div class="bar-row__days bar-row__days--blue">約5営業日</div>
+              </div>
+              <div class="saving-badge">約67%短縮</div>
+            </div>
+
+            <div class="value-list">
+              <h3>はやさを支える工夫</h3>
+              <ul>
+                <li>AI・ノーコード活用で制作を最適化</li>
+                <li>豊富なテンプレートで、素早く活用</li>
+                <li>撮影・デザインもまとめて対応</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="value-card">
+            <div class="value-card__top">
+              <span class="value-card__number">02</span>
+              <span class="icon-circle">
+                <img src="assets/icon_value_quality_pen.png" alt="" loading="lazy">
+              </span>
+            </div>
+            <h2 class="value-card__title">うまい</h2>
+            <p class="value-card__text">デザインと戦略の両立を追求する制作力</p>
+
+            <div class="experience-figure value-asset-figure" aria-label="企画・デザイン領域の実績">
+              <img src="assets/new_aset_1.png" alt="10年以上 実務経験" loading="lazy">
+            </div>
+
+            <div class="value-list">
+              <h3>うまさのポイント</h3>
+              <ul>
+                <li>企画立案までワンストップディレクション</li>
+                <li>課題から解決まで一気通貫</li>
+                <li>戦略・制作・運用・NPOまで対応領域</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="value-card">
+            <div class="value-card__top">
+              <span class="value-card__number">03</span>
+              <span class="icon-circle">
+                <img src="assets/icon_value_balance_scale.png" alt="" loading="lazy">
+              </span>
+            </div>
+            <h2 class="value-card__title">ちょうどよく</h2>
+            <p class="value-card__text">品質と費用の最適バランスのご提案</p>
+
+            <div class="matrix-figure value-asset-figure" aria-label="品質と費用の最適バランス">
+              <img src="assets/new_aset_2.png" alt="品質と費用の最適バランス" loading="lazy">
+            </div>
+
+            <div class="value-list">
+              <h3>ちょうどよくのポイント</h3>
+              <ul>
+                <li>品質と費用のバランス重視でご提案</li>
+                <li>ムダな工程や余分な工数を整理</li>
+                <li>最適な費用のバランスを最適化</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <div class="value-cta">
+          <img class="value-cta__icon" src="assets/icon_cta_lightbulb_badge.png" alt="" loading="lazy">
+          <p class="value-cta__text">
+            この3つの価値で、すべてのプロジェクトを大切にしています。<br>
+            まずはお気軽にご相談ください。最適な進め方をご提案します。
+          </p>
+          <a class="button button--outline" href="#contact">まずは相談してみる <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-section" id="service" aria-labelledby="service-title">
+      <div class="service-panel">
+        <div class="service-grid">
+          <div class="service-intro">
+            <p class="service-intro__eyebrow" id="service-title">SERVICE</p>
+            <h2 class="service-intro__title">オールに<br>できること</h2>
+            <p class="service-intro__text">
+              Web制作をはじめ、ブランドづくりから<br>
+              写真・動画・SNS・行政支援まで、<br>
+              事業課題やご希望する手段を、経験に合わせ<br>
+              必要な幅でご提供します。
+            </p>
+          </div>
+
+          <article class="service-card">
+            <div class="service-card__meta">
+              <img src="assets/icon_branding_layers.png" alt="" loading="lazy">
+              <span>01</span>
+            </div>
+            <h3>ブランディング</h3>
+            <p>想いをかたちに伝え、理念と見た目の設計で伝わるブランドに。</p>
+            <div class="service-card__visual">
+              <img src="assets/mockup_branding_guideline_set.png" alt="ブランドガイドラインと名刺のモックアップ" loading="lazy">
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-card__meta">
+              <img src="assets/icon_web_monitor_phone.png" alt="" loading="lazy">
+              <span>02</span>
+            </div>
+            <h3>Webサイト制作</h3>
+            <p>STUDIOやノーコードを活用し、高品質なWebサイトをスピーディかつ低価格で。</p>
+            <div class="service-card__visual">
+              <img src="assets/mockup_website_laptop_phone.png" alt="ノートPCとスマートフォンのWebサイトモックアップ" loading="lazy">
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-card__meta">
+              <img src="assets/icon_logo_pen_nib_nodes.png" alt="" loading="lazy">
+              <span>03</span>
+            </div>
+            <h3>ロゴ制作</h3>
+            <p>想いが伝わる独自の形。シンプルで印象的な、ロゴをご提案。</p>
+            <div class="service-card__visual">
+              <img src="assets/logo_identity_board.png" alt="オールのロゴデザインボード" loading="lazy">
+            </div>
+          </article>
+
+          <div class="service-row service-row--three">
+            <article class="service-card">
+              <div class="service-card__meta">
+                <img src="assets/icon_camera.png" alt="" loading="lazy">
+                <span>04</span>
+              </div>
+              <h3>撮影・写真編集・動画</h3>
+              <p>商品・人物・現場の魅力を伝え、用途に合わせて魅せる映像・写真を。</p>
+              <div class="service-card__visual">
+                <img src="assets/mockup_photo_video_camera_laptop.png" alt="カメラと動画編集画面のモックアップ" loading="lazy">
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-card__meta">
+                <img src="assets/icon_sns_like_bubble.png" alt="" loading="lazy">
+                <span>05</span>
+              </div>
+              <h3>SNS運用</h3>
+              <p>企画・投稿設計・運用支援は当然、効果改善の通知まで一貫対応。</p>
+              <div class="service-card__visual service-card__visual--sns">
+                <img class="sns-logos" src="assets/sns_platform_logos_instagram_x_line.png" alt="Instagram、X、LINEのロゴ" loading="lazy">
+                <img class="sns-phone" src="assets/mockup_sns_profile_phone.png" alt="SNSプロフィール画面のスマートフォンモックアップ" loading="lazy">
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-card__meta">
+                <img src="assets/icon_graphic_brochure_book.png" alt="" loading="lazy">
+                <span>06</span>
+              </div>
+              <h3>チラシ・パンフレットなどグラフィック制作</h3>
+              <p>目的や配布先に合わせてデザイン、印刷も含めてご提案いたします。</p>
+              <div class="service-card__visual">
+                <img src="assets/mockup_brochure_pamphlet_set.png" alt="チラシとパンフレットのモックアップ" loading="lazy">
+              </div>
+            </article>
+          </div>
+
+          <article class="service-support">
+            <div class="service-support__copy">
+              <div class="service-card__meta service-card__meta--support">
+                <img src="assets/icon_internal_design_support_presentation.png" alt="" loading="lazy">
+                <span>07</span>
+              </div>
+              <h3>社内デザイン制作支援</h3>
+              <p>
+                AIやノーコードを活用した社内内製化を、講座と伴走支援でサポート。<br>
+                デザイン・Web・SNSなど、社内でつくれる体制づくりを支援します。
+              </p>
+            </div>
+            <div class="service-support__image">
+              <img src="assets/illustration_internal_design_support.png" alt="社内デザイン制作支援の講座イラスト" loading="lazy">
+            </div>
+            <ul class="support-checklist">
+              <li>社員向けデザイン講座・研修</li>
+              <li>テンプレート・ガイドライン整備</li>
+              <li>伴走支援で定着までサポート</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact" aria-labelledby="cta-title">
+      <div class="cta-section__photo">
+        <img src="assets/cta_consultation_photo.png" alt="制作について相談している二人" loading="lazy">
+      </div>
+      <div class="cta-section__content">
+        <h2 id="cta-title">やりたいものが、まだ明確でなくても大丈夫です。</h2>
+        <p>
+          相談から、見積り、納品、どんな方法があるのかまで、<br>
+          Web・写真・動画・SNSまで、あなたに合った未来をいっしょに。
+        </p>
+        <a class="button button--white" href="mailto:hello@all-design.studio">まずは相談してみる <span aria-hidden="true">→</span></a>
+        <img class="talk-note" src="assets/new_aset_3_transparent.png" alt="" aria-hidden="true" loading="lazy">
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="site-footer__logo" href="#top">オール</a>
+    <p class="site-footer__copy">© 2026 オール</p>
+    <div class="site-footer__social" aria-label="SNSとメール">
+      <a class="social-icon social-icon--instagram" href="#" aria-label="Instagram"></a>
+      <a class="social-icon social-icon--mail" href="mailto:hello@all-design.studio" aria-label="メール"></a>
+    </div>
+  </footer>
+</body>
+</html>
