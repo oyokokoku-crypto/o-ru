@@ -639,9 +639,13 @@ select {
   .hero__copy {
     writing-mode: vertical-rl;
     text-orientation: upright;
-    font-size: clamp(30px, 3.4vw, 50px);
+    font-size: clamp(42px, 6.1vh, 68px);
     letter-spacing: 0.08em;
     line-height: 1.16;
+  }
+
+  .hero__copy--right .hero__ch:nth-child(-n + 2) {
+    color: #e60012;
   }
 
   .hero__copy--right {
