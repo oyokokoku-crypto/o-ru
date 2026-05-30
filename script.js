@@ -10,14 +10,17 @@
     [".compare-head", 0],
     [".compare-card", 1],
     [".compare-note", 0],
+    [".works-head", 0],
+    [".works-list-hero", 0],
+    [".work-card", 1],
+    [".works-source", 0],
     [".service-panel", 0],
     [".service-intro", 0],
     [".service-card", 1],
     [".service-support", 0],
     [".cta-section", 0],
     [".cta-section__photo", 0],
-    [".cta-section__content", 1],
-    [".site-footer > *", 1]
+    [".cta-section__content", 1]
   ];
 
   var items = [];
@@ -62,6 +65,181 @@
   items.forEach(function (element) {
     observer.observe(element);
   });
+})();
+
+/* 制作実績の横スクロール */
+(function () {
+  var track = document.querySelector("[data-works-track]");
+  if (!track) return;
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var isHovering = false;
+  var isDragging = false;
+  var movedWhileDragging = false;
+  var suppressClick = false;
+  var pauseUntil = 0;
+  var startX = 0;
+  var startLeft = 0;
+  var loopWidth = 0;
+  var resizeTimer = 0;
+  var previousTime = 0;
+  var speed = 34 / 1000;
+
+  function prepareLoop() {
+    var existingClones = track.querySelectorAll("[data-loop-clone]");
+    existingClones.forEach(function (clone) {
+      clone.remove();
+    });
+
+    var originalCards = Array.prototype.slice.call(track.children);
+    originalCards.forEach(function (card) {
+      var clone = card.cloneNode(true);
+      clone.setAttribute("data-loop-clone", "true");
+      clone.setAttribute("aria-hidden", "true");
+      clone.tabIndex = -1;
+      clone.querySelectorAll("a, button, input, textarea, select, [tabindex]").forEach(function (element) {
+        element.tabIndex = -1;
+      });
+      track.appendChild(clone);
+    });
+
+    window.requestAnimationFrame(updateLoopWidth);
+  }
+
+  function updateLoopWidth() {
+    var firstCard = track.querySelector(".work-card:not([data-loop-clone])");
+    var firstClone = track.querySelector(".work-card[data-loop-clone]");
+    loopWidth = firstCard && firstClone ? firstClone.offsetLeft - firstCard.offsetLeft : 0;
+  }
+
+  function maxScrollLeft() {
+    return Math.max(0, track.scrollWidth - track.clientWidth);
+  }
+
+  function pauseFor(duration) {
+    pauseUntil = Date.now() + duration;
+  }
+
+  function shouldPause() {
+    return reduceMotion || document.hidden || isHovering || isDragging || Date.now() < pauseUntil || maxScrollLeft() <= 1;
+  }
+
+  function normalizeScroll() {
+    if (!loopWidth) return;
+    while (track.scrollLeft >= loopWidth) {
+      track.scrollLeft -= loopWidth;
+    }
+  }
+
+  function releaseDrag(event) {
+    if (!isDragging) return;
+    isDragging = false;
+    track.classList.remove("is-dragging");
+    if (track.releasePointerCapture && event && event.pointerId) {
+      try {
+        track.releasePointerCapture(event.pointerId);
+      } catch (error) {
+        // Ignore release errors when the pointer was already released by the browser.
+      }
+    }
+    if (movedWhileDragging) {
+      suppressClick = true;
+      window.setTimeout(function () {
+        suppressClick = false;
+      }, 120);
+    }
+    pauseFor(1400);
+  }
+
+  track.addEventListener("mouseenter", function () {
+    isHovering = true;
+  });
+
+  track.addEventListener("mouseleave", function () {
+    isHovering = false;
+    releaseDrag();
+  });
+
+  track.addEventListener("focusin", function () {
+    isHovering = true;
+  });
+
+  track.addEventListener("focusout", function () {
+    isHovering = false;
+  });
+
+  track.addEventListener("wheel", function () {
+    pauseFor(1600);
+  }, { passive: true });
+
+  track.addEventListener("touchstart", function () {
+    pauseFor(2400);
+  }, { passive: true });
+
+  track.addEventListener("touchend", function () {
+    pauseFor(1800);
+  }, { passive: true });
+
+  track.addEventListener("pointerdown", function (event) {
+    if (event.pointerType !== "mouse" || event.button !== 0) {
+      return;
+    }
+    isDragging = true;
+    movedWhileDragging = false;
+    startX = event.clientX;
+    startLeft = track.scrollLeft;
+    track.classList.add("is-dragging");
+    if (track.setPointerCapture) {
+      track.setPointerCapture(event.pointerId);
+    }
+  });
+
+  track.addEventListener("pointermove", function (event) {
+    if (!isDragging) return;
+    var delta = event.clientX - startX;
+    if (Math.abs(delta) > 4) {
+      movedWhileDragging = true;
+    }
+    track.scrollLeft = startLeft - delta;
+    event.preventDefault();
+  });
+
+  track.addEventListener("pointerup", releaseDrag);
+  track.addEventListener("pointercancel", releaseDrag);
+
+  track.addEventListener("click", function (event) {
+    if (!suppressClick) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+
+  function animate(timestamp) {
+    if (!previousTime) {
+      previousTime = timestamp;
+    }
+    var elapsed = timestamp - previousTime;
+    previousTime = timestamp;
+
+    if (!shouldPause()) {
+      var nextLeft = track.scrollLeft + elapsed * speed;
+      if (loopWidth && nextLeft >= loopWidth) {
+        nextLeft -= loopWidth;
+      }
+      track.scrollLeft = nextLeft;
+    } else {
+      normalizeScroll();
+    }
+
+    window.requestAnimationFrame(animate);
+  }
+
+  window.addEventListener("resize", function () {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(updateLoopWidth, 120);
+  });
+
+  prepareLoop();
+  window.requestAnimationFrame(animate);
 })();
 
 /* スクロールで追従ヘッダーにヘアラインを出す */
